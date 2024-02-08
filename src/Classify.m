@@ -1,4 +1,19 @@
 function Classify(red, netTransfer, imdsValidation, augimdsValidation, imdsTrain, augimdsTrain)
+    %Carga de variables para la clasificacion
+    filesPath = fullfile('..\ModelosEntrenados\', red);
+    netTransfer = fullfile(filesPath, netTransfer);
+    imdsValidation = fullfile(filesPath, imdsValidation);
+    augimdsValidation = fullfile(filesPath, augimdsValidation);
+    imdsTrain = fullfile(filesPath, imdsTrain);
+    augimdsTrain = fullfile(filesPath, augimdsTrain);
+    load(netTransfer);
+    load(imdsValidation);
+    load(augimdsValidation);
+    load(imdsTrain);
+    load(augimdsTrain);
+    disp(netTransfer);
+    disp(augimdsValidation);
+
     %% Validación del proceso de entrenamiento
     
     [YValidationPred,probs] = classify(netTransfer,augimdsValidation);
