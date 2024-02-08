@@ -118,8 +118,17 @@ function Training227(red, solver, batchSize,maxEpochs, initialLearnRate)
     end
     S1 = '\netTransferMonumentos';
     S2 = red;
-    fichero = [NewDir,S1,S2];
-    fichero = convertCharsToStrings(fichero);
-    save (fichero, "netTransfer");
+    redPath = [NewDir,S1,S2];
+    redPath = convertCharsToStrings(redPath);
+    %imdsValidation, augimdsValidation, imdsTrain, augimdsTrain
+    imdsValPath = [NewDir, '\imdsValidation'];
+    augImdsValPath = [NewDir, '\augimdsValidation'];
+    imdsTrainPath = [NewDir, '\imdsTrain'];
+    augImdsTrainPath = [NewDir, '\augimdsTrain'];
+    save (redPath, "netTransfer");
+    save (imdsValPath, "imdsValidation");
+    save (augImdsValPath, "augimdsValidation");
+    save (imdsTrainPath, "imdsTrain");
+    save (augImdsTrainPath, "augimdsTrain");
 end
 
