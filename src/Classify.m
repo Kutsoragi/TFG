@@ -11,8 +11,6 @@ function Classify(red, netTransfer, imdsValidation, augimdsValidation, imdsTrain
     load(augimdsValidation);
     load(imdsTrain);
     load(augimdsTrain);
-    disp(netTransfer);
-    disp(augimdsValidation);
 
     %% Validación del proceso de entrenamiento
     
