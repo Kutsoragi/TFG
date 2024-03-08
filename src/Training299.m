@@ -1,4 +1,4 @@
-function Training299(red, solver, batchSize,maxEpochs, initialLearnRate)
+function Training299(red, solver, batchSize,maxEpochs, initialLearnRate, showTrainImages, analyzeFirstNet, analyzeModifiedNet, showNetModels, showAugImages)
 
     %% Training para inceptionresnetv2, inceptionv3
 
@@ -12,11 +12,13 @@ function Training299(red, solver, batchSize,maxEpochs, initialLearnRate)
     
     numTrainImages = numel(imdsTrain.Labels);
     idx = randperm(numTrainImages,16);
-    figure
-    for i = 1:16
-        subplot(4,4,i)
-        I = readimage(imdsTrain,idx(i));
-        imshow(I)
+    if (showTrainImages)
+        figure
+        for i = 1:16
+            subplot(4,4,i)
+            I = readimage(imdsTrain,idx(i));
+            imshow(I)
+        end
     end
     
     %% Redes con dimensiones de imagen 299x299x3: inceptionresnetv2, inceptionv3
@@ -30,8 +32,10 @@ function Training299(red, solver, batchSize,maxEpochs, initialLearnRate)
     net.Layers(1)
     inputSize = net.Layers(1).InputSize;
     
-    analyzeNetwork(net)
-    
+    if (analyzeFirstNet)
+        analyzeNetwork(net)
+    end
+
     if isa(net,'SeriesNetwork') 
       lgraph = layerGraph(net.Layers); 
     else
@@ -60,18 +64,22 @@ function Training299(red, solver, batchSize,maxEpochs, initialLearnRate)
     newClassLayer = classificationLayer('Name','new_classoutput');
     lgraph = replaceLayer(lgraph,classLayer.Name,newClassLayer);
     
-    figure('Units','normalized','Position',[0.3 0.3 0.4 0.4]);
-    plot(lgraph)
-    ylim([0,10])
-    
+    if (showNetModels)
+        figure('Units','normalized','Position',[0.3 0.3 0.4 0.4]);
+        plot(lgraph)
+        ylim([0,10])
+    end
+
     layers = lgraph.Layers;
     connections = lgraph.Connections;
     
     layers(1:10) = freezeWeights(layers(1:10));
     lgraph = createLgraphUsingConnections(layers,connections);
     
-    analyzeNetwork(lgraph)
-    
+    if (analyzeModifiedNet)
+        analyzeNetwork(lgraph)
+    end
+
     pixelRange = [-30 30];
     scaleRange = [0.9 1.1];
     imageAugmenter = imageDataAugmenter( ...
@@ -89,13 +97,15 @@ function Training299(red, solver, batchSize,maxEpochs, initialLearnRate)
     numaugsValidationImages = augimdsValidation.NumObservations;
     idx = randperm(numaugsValidationImages,16);
     
-    figure
-    for i = 1:16
-        subplot(4,4,i)
-        I = imread(augimdsValidation.Files{idx(i),1});
-        imshow(I)
+    if (showAugImages)
+        figure
+        for i = 1:16
+            subplot(4,4,i)
+            I = imread(augimdsValidation.Files{idx(i),1});
+            imshow(I)
+        end
     end
-    
+
     valFrequency = floor(numel(augimdsTrain.Files)/batchSize);
     options = trainingOptions(solver, ...
         'MiniBatchSize',batchSize, ...

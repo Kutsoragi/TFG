@@ -1,10 +1,10 @@
-function Training224(red, solver, batchSize,maxEpochs, initialLearnRate, showTrainImages, analyzeFirstNet, analyzeModifiedNet, showNetModels, showAugImages)
+function Training299(red, solver, batchSize,maxEpochs, initialLearnRate, showTrainImages)
 
-    %% Training para GoogleNet, VGG16, VGG19, ResNet18, ResNet50, ResNet101, densenet201
-    
+    %% Training para inceptionresnetv2, inceptionv3
+
     % https://es.mathworks.com/help/deeplearning/ug/train-deep-learning-network-to-classify-new-images.html
     
-    imds = imageDatastore('..\DATASET224x224',...
+    imds = imageDatastore('..\DATASET299x299',...
         'IncludeSubfolders',true,...
         'LabelSource','foldernames');
     
@@ -21,20 +21,19 @@ function Training224(red, solver, batchSize,maxEpochs, initialLearnRate, showTra
         end
     end
     
-    %% Redes con dimensiones de imagen 224x224x3: googlenet, vgg16, vgg19, resnet18, resnet50, resnet101, densenet201
+    %% Redes con dimensiones de imagen 299x299x3: inceptionresnetv2, inceptionv3
     switch red
-        case 'googlenet'
-            net = googlenet;        
-        case 'resnet50'
-            net = resnet50;        
+        case 'inceptionresnetv2'
+            net = inceptionresnetv2;
+        case 'inceptionv3'
+            net = inceptionv3;
     end
     
     net.Layers(1)
     inputSize = net.Layers(1).InputSize;
     
     if (analyzeFirstNet)
-        analyzeNetwork(net)
-    end
+    analyzeNetwork(net)
     
     if isa(net,'SeriesNetwork') 
       lgraph = layerGraph(net.Layers); 
@@ -64,11 +63,9 @@ function Training224(red, solver, batchSize,maxEpochs, initialLearnRate, showTra
     newClassLayer = classificationLayer('Name','new_classoutput');
     lgraph = replaceLayer(lgraph,classLayer.Name,newClassLayer);
     
-    if (showNetModels)
-        figure('Units','normalized','Position',[0.3 0.3 0.4 0.4]);
-        plot(lgraph)
-        ylim([0,10])
-    end
+    figure('Units','normalized','Position',[0.3 0.3 0.4 0.4]);
+    plot(lgraph)
+    ylim([0,10])
     
     layers = lgraph.Layers;
     connections = lgraph.Connections;
@@ -76,9 +73,7 @@ function Training224(red, solver, batchSize,maxEpochs, initialLearnRate, showTra
     layers(1:10) = freezeWeights(layers(1:10));
     lgraph = createLgraphUsingConnections(layers,connections);
     
-    if (analyzeModifiedNet)
-        analyzeNetwork(lgraph)
-    end
+    analyzeNetwork(lgraph)
     
     pixelRange = [-30 30];
     scaleRange = [0.9 1.1];
@@ -97,15 +92,12 @@ function Training224(red, solver, batchSize,maxEpochs, initialLearnRate, showTra
     numaugsValidationImages = augimdsValidation.NumObservations;
     idx = randperm(numaugsValidationImages,16);
     
-    if (showAugImages)
-        figure
-        for i = 1:16
-            subplot(4,4,i)
-            I = imread(augimdsValidation.Files{idx(i),1});
-            imshow(I)
-        end
+    figure
+    for i = 1:16
+        subplot(4,4,i)
+        I = imread(augimdsValidation.Files{idx(i),1});
+        imshow(I)
     end
-    
     
     valFrequency = floor(numel(augimdsTrain.Files)/batchSize);
     options = trainingOptions(solver, ...
@@ -141,6 +133,5 @@ function Training224(red, solver, batchSize,maxEpochs, initialLearnRate, showTra
     save (augImdsValPath, "augimdsValidation");
     save (imdsTrainPath, "imdsTrain");
     save (augImdsTrainPath, "augimdsTrain");
-
 end
 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonuMad</title>
+	<!-- Bootstrap stylesheet -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">    
+</head>
+
+<body>
+<div class="container-fluid">
+    <h4 class="text-primary">¿Qué es MonuMad?</h4>
+    <p>MonuMad es una aplicación gratuita diseñada para el reconocimiento de imágenes. Específicamente está centrada en reconocer monumentos de Madrid a partir de una fotografía. Además de proporcionar el nombre del monumento correspondiente a la imagen, la aplicación también ofrece el contexto cultural e histórico asociado a ese monumento.</p>
+
+    <h4 class="text-primary">¿Qué monumentos hay disponibles?</h4>
+    <p>Actualmente hay seis monumentos disponibles, son los siguientes:</p>
+    <ul>
+        <li>Fuente de Cibeles</li>
+        <li>Fuente de Neptuno</li>
+        <li>Estatua del Oso y el Madroño</li>
+        <li>Puerta de Alcalá</li>
+        <li>Puerta de Toledo</li>
+        <li>Estatua de Felipe III</li>
+    </ul>
+    <p>En el futuro se incorporarán nuevos monumentos, en futuras actualizaciones.</p>
+
+    <h4 class="text-primary">¿Cómo usar MonuMad?</h4>
+    <p>Si eres un usuario inexperto, simplemente selecciona uno de los cuatro modelos disponibles que active la opción de “Descubrir Monumento” y podrás seleccionar la imagen que quieres procesar, después dale a enviar y se ofrecerán los resultados.</p>
+    <p>Adicionalmente, si quieres probar más en detalle puedes seleccionar uno de los modelos de Redes Neuronales Convolucionales que desees. Pudiendo ajustar los diferentes campos para realizar el entrenamiento y clasificación del modelo.</p>
+
+    <h4 class="text-primary">Botón “Entrenar”</h4>
+    <p>Este botón sirve para realizar el entrenamiento del modelo previamente seleccionado. Podrás seleccionar entre los diferentes parámetros configurables como son:</p>
+    <ul>
+        <li><u>Solver:</u> determina el algoritmo de optimización utilizado para ajustar los pesos de un modelo durante el entrenamiento. Los algoritmos disponibles son:
+            <ul><br>
+                <li>sgdm: es sensible a la tasa de aprendizaje. Introduce ruido estocástico útil que actúa como regularizador.</li>
+                <li>adam: adaptabilidad, eficiente en problemas variados.</li>
+                <li>rmsprop: adaptabilidad, menos sensible a la tasa de aprendizaje.</li>
+                <li>lbfgs: eficiente en datos grandes, memoria limitada.</li>
+            </ul>
+        </li><br>
+        <li><u>Tamaño del minilote:</u> determina la cantidad de imágenes de ejemplo que se utilizan en cada interacción durante el entrenamiento. Un mayor tamaño contribuye a la eficiencia computacional, menor ruido estocástico y mayor requisito de memoria.</li>
+        <li><u>Número de épocas:</u> es el número de veces en el que todo el conjunto de entrenamiento ha pasado por el modelo. A mayor número el entrenamiento tardará más, también se obtendrá un refinamiento mayor del modelo, pero existe el riesgo de generar sobreajuste.</li>
+        <li><u>Tasa de aprendizaje:</u> determina el tamaño de los pesos que se toman durante la optimización para ajustar los pesos del modelo.</li>
+    </ul>
+
+    <h4 class="text-primary">Botón “Clasificación”</h4>
+    <p>Este botón sirve para que una vez que el modelo esté entrenado se pueda llevar a cabo la clasificación de imágenes de las imágenes dadas por defecto. De modo que se pueda comprobar que tal salen los resultados, tras el entrenamiento.</p>
+
+    <h4 class="text-primary">Botón “Descubrir monumento”</h4>
+    <p>Este botón sirve para llevar a cabo el reconocimiento de un monumento una vez el modelo está entrenado. Simplemente selecciona una fotografía, y el modelo realizará el reconocimiento del monumento, dándote el resultado. Se abrirá una pantalla con la fotografía dada, el nombre del monumento, su contexto cultural e histórico y enlaces para profundizar sobre ello.</p>
+
+    <h4 class="text-primary">Formato de imágenes permitido</h4>
+    <p>MonuMad admite imágenes de cualquier dimensión con el formato .JPG. Asegúrate que el monumento aparezca en la imagen, pero no te preocupes si la foto no es perfecta, lo esencial es que el monumento aparezca en la fotografía.</p>
+
+    <h4 class="text-primary">Historia de la aplicación</h4>
+    <p>MonuMad ha sido desarrollada entre los años 2023 y 2024 como un proyecto del Fin de Grado bajo el título “Reconocimiento de imágenes mediante técnicas de Aprendizaje Profundo”, dirigido por el profesor Gonzalo Pajares Martinsanz.</p>
+    <p>La aplicación ha sido desarrollada en Matlab y su interfaz ha sido creada a través de Matlab App Designer.</p>
+
+    <h4 class="text-primary">Autores de la aplicación</h4>
+    <p>Los creadores de MonuMad son dos estudiantes del grado de Ingeniería de Software de la Universidad Complutense de Madrid:</p>
+    <ul>
+        <li>Francisco José Fernández Ferreiro</li>
+        <li>Víctor Porras Martínez</li>
+    </ul>
+</div>
+</body>
+
+</html>
