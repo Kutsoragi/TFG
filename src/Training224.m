@@ -24,9 +24,7 @@ function Training224(red, solver, batchSize,maxEpochs, initialLearnRate, showTra
     %% Redes con dimensiones de imagen 224x224x3: googlenet, vgg16, vgg19, resnet18, resnet50, resnet101, densenet201
     switch red
         case 'googlenet'
-            net = googlenet;        
-        case 'resnet50'
-            net = resnet50;        
+            net = googlenet;                
     end
     
     net.Layers(1)
