@@ -1,1 +1,1 @@
-Este es el proyecto de fin de grado presentado en 2024 por Víctor Porras Martínez y Francisco José Fernández Ferreiro
+Este proyecto de fin de grado ha sido presentado en 2024 por Víctor Porras Martínez y Francisco José Fernández Ferreiro, como parte del Grado en Ingeniería de Software de la Universidad Complutense de Madrid.
